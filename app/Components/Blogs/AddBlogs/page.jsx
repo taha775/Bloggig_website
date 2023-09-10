@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
@@ -18,12 +18,23 @@ export const Input = ({ type, placeholder, value, name, handleChange }) => {
 
 function AddBlogs() {
   const route = useRouter();
-  let [blogs, setblogs] = useState({
+  const [blogs, setblogs] = useState({
     blog_title: "",
     blog_comment: "",
     blog_image: "",
-    blogger_uid: localStorage.getItem("user_id"),
+    blogger_uid: "", // Initialize blogger_uid as an empty string
   });
+
+  useEffect(() => {
+    // Retrieve the user_id from localStorage on the client side
+    const user_id = localStorage.getItem("user_id");
+
+    // Set the initial state for blogger_uid
+    setblogs((prevBlogs) => ({
+      ...prevBlogs,
+      blogger_uid: user_id || "", // Use an empty string if user_id is null
+    }));
+  }, []); // Empty dependency array to run this effect once on component mount
 
   const handleChange = (e) => {
     setblogs({ ...blogs, [e.target.name]: e.target.value });
@@ -34,7 +45,7 @@ function AddBlogs() {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://localhost:3000/api/Users/Blogs/MyBlogs",
+      url: `http://localhost:3000/api/Users/Blogs/MyBlogs/  `,
       headers: {
         "Content-Type": "application/json",
       },
@@ -46,7 +57,8 @@ function AddBlogs() {
       .then((response) => {
         console.log(JSON.stringify(response.data));
         alert(response.data.message);
-        localStorage.setItem("user_id", response.data.data._id);
+        console.log(response.data.data);
+        localStorage.setItem("user_id", response.data.data.blogger_uid);
         route.push("/Components/Blogs/AllBlogs");
       })
       .catch((error) => {

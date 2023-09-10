@@ -26,13 +26,15 @@ function AllBlogs() {
   }, []);
   return (
     <>
+      <Link href={`/Components/Blogs/AddBlogs/`}> AddBlogs</Link>;
       <h1>All Blogs</h1>
-      <Link href={"/Components/Blogs/MyBlogs"}>My Blogs</Link>
+      <Link href={"/Components/Blogs/MyBlogs/"}>My Blogs</Link>
       <br />
-      <Link href={"/Components/Blogs/AddBlogs"}> AddBlogs</Link>
       {res.map((v, i) => {
         return (
           <div className="border-2 w-1/2 mx-auto">
+            <b>object id {v._id}</b>
+            <br />
             <b>{v.blogger_uid}</b>
             <h1>{v.blogger_name}</h1>
             <h1>{v.blog_title}</h1>

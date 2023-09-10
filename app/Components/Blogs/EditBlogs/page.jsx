@@ -23,7 +23,7 @@ function EditBlogs(params) {
           `http://localhost:3000/api/Users/Blogs/MyBlogs/${params.searchParams.id}`
         )
         .then((response) => {
-          console.log(response);
+          console.log(response.data.data);
           setBlogData(response.data); // Set the fetched data in state
         })
         .catch((error) => {
