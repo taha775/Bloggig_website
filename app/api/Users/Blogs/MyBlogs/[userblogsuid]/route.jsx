@@ -31,7 +31,9 @@ export async function GET(request, content) {
     }
   } catch (error) {
     console.error("Error in GET request:", error);
-    return NextResponse.error("An error occurred", 500);
+    return NextResponse.json({
+      message: "blgs not found ",
+    });
   }
 }
 
@@ -54,31 +56,31 @@ export async function DELETE(request, content) {
   //   return NextResponse.error("An error occurred", 500);
 }
 
-export async function PUT(request, content) {
-  try {
-    const body = await request.json();
-    console.log(body);
-    console.log(content.params.userblogsuid);
-    const id = content.params.userblogsuid;
+// export async function PUT(request, content) {
+//   try {
+//     const body = await request.json();
+//     console.log(body);
+//     console.log(content.params.userblogsuid);
+//     const id = content.params.userblogsuid;
 
-    const checkuser = await BLOGMODEL.findOne({ _id: id });
+//     const checkuser = await BLOGMODEL.findOne({ _id: id });
 
-    if (checkuser) {
-      await checkuser.updateOne({
-        blog_title: body.blog_title,
-        blog_image: body.blog_image,
-        blog_comment: body.blog_comment,
-      });
+//     if (checkuser) {
+//       await checkuser.updateOne({
+//         blog_title: body.blog_title,
+//         blog_image: body.blog_image,
+//         blog_comment: body.blog_comment,
+//       });
 
-      return NextResponse.json({
-        data: checkuser,
-        message: "Blog updated successfully",
-      });
-    } else {
-      return NextResponse.error("Blog not found", 404);
-    }
-  } catch (error) {
-    console.error("Error in PUT request:", error);
-    return NextResponse.error("An error occurred", 500);
-  }
-}
+//       return NextResponse.json({
+//         data: checkuser,
+//         message: "Blog updated successfully",
+//       });
+//     } else {
+//       return NextResponse.error("Blog not found", 404);
+//     }
+//   } catch (error) {
+//     console.error("Error in PUT request:", error);
+//     return NextResponse.error("An error occurred", 500);
+//   }
+// }

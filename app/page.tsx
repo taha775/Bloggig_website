@@ -7,7 +7,7 @@ export default function Home() {
       <header className="bg-blue-500 text-white py-6">
         <div className="container mx-auto text-center">
           <h1 className="text-3xl font-semibold">Welcome to My Blog</h1>
-          <p className="mt-2">Explore the latest articles and updates</p>
+          <p className="mt-2">Explore the latest articles and updatesss</p>
         </div>
       </header>
 

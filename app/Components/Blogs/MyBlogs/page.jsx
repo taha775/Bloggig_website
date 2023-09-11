@@ -1,16 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Link from "next/link";
+import EditBlogs from "../EditBlogs/page";
 import { useRouter } from "next/navigation";
 
-function AllBlogs() {
+function MyBlogs() {
   let router = useRouter();
 
-  const handleEdit = (postId) => {
-    console.log(postId);
+  const handleEdit = (obj_id) => {
+    console.log(obj_id);
+
     // Redirect to the edit page, passing the postId as a query parameter
-    router.push(`/Components/Blogs/EditBlogs?id=${postId}`);
+    router.push(`/Components/Blogs/EditBlogs?id=${obj_id}`);
   };
 
   const handleDelete = (postId) => {
@@ -80,4 +81,4 @@ function AllBlogs() {
   );
 }
 
-export default AllBlogs;
+export default MyBlogs;

@@ -13,6 +13,7 @@ function EditBlogs(params) {
     blog_comment: "",
     blog_image: "",
   });
+  console.log("blogdata", blogData.blog_title);
 
   useEffect(() => {
     if (params) {
@@ -20,11 +21,11 @@ function EditBlogs(params) {
       // Fetch the existing blog data by blog ID
       axios
         .get(
-          `http://localhost:3000/api/Users/Blogs/MyBlogs/${params.searchParams.id}`
+          `http://localhost:3000/api/Users/Blogs/EditBlogs/${params.searchParams.id}`
         )
         .then((response) => {
-          console.log(response.data.data);
-          setBlogData(response.data); // Set the fetched data in state
+          console.log("response", response.data.data[0]);
+          setBlogData(response.data.data[0]); // Set the fetched data in state
         })
         .catch((error) => {
           console.log(error);
@@ -38,7 +39,10 @@ function EditBlogs(params) {
 
   const submit = () => {
     axios
-      .put(`http://localhost:3000/api/Users/Blogs/MyBlogs/${params}`, blogData)
+      .put(
+        `http://localhost:3000/api/Users/Blogs/EditBlogs/${params.searchParams.id}`,
+        blogData
+      )
       .then((response) => {
         console.log(JSON.stringify(response.data));
         setBlogData(response.data);
@@ -53,8 +57,8 @@ function EditBlogs(params) {
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white text-red-500 rounded-lg shadow-xl">
       <h1 className="text-2xl mb-4 text-center">Edit Blog</h1>
-
       {/* Create input fields to edit the blog data */}
+      <label htmlFor="">Blog title.... </label> &emsp;
       <input
         type="text"
         placeholder="Enter Blog Title"
@@ -62,6 +66,7 @@ function EditBlogs(params) {
         value={blogData.blog_title}
         onChange={handleChange}
       />
+      <label htmlFor="">Blog comment......</label> &emsp;
       <input
         type="text"
         placeholder="Enter Blog Comment"
@@ -69,6 +74,7 @@ function EditBlogs(params) {
         value={blogData.blog_comment}
         onChange={handleChange}
       />
+      <label htmlFor="">blog image...... </label>&emsp;
       <input
         type="text"
         placeholder="Enter Image Address"
@@ -76,7 +82,6 @@ function EditBlogs(params) {
         value={blogData.blog_image}
         onChange={handleChange}
       />
-
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4"
         onClick={submit}
